@@ -1,2 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿class Program
+{
+    public class Neuron
+    {
+        public double input;
+        public double output;
+        public double bias;
+        public double error;
+    }
+}
