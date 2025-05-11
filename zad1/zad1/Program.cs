@@ -1,17 +1,28 @@
-﻿class Program
-{
+﻿using System.IO.Compression;
 
-    public class Neuron
+class Program
+{
+    class Neuron
     {
-        public double input;
-        public double output;
-        public double bias;
-    };
+        public double[] inputs = new double[2];
+        public double[] weights = new double[2];
+        public double error;
+
+        private Random r = new Random();
+
+        public void randomizeWeights()
+        {
+            for (int i = 0; i < weights.Length - 1; i++)
+            {
+                weights[i] = r.NextDouble();
+            }
+        }
+        
+    }
 
     public class NeuralNetwork()
     {
         public int Epoch = 20000;
-        private Neuron[][] Neurons;
     };
 
 }
