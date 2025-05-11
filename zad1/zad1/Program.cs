@@ -2,27 +2,24 @@
 
 class Program
 {
+    static int numberOfNeurons = 2;
+
     class Neuron
     {
-        public double[] inputs = new double[2];
-        public double[] weights = new double[2];
+        public double input;
+        public double output;
         public double error;
-
-        private Random r = new Random();
-
-        public void randomizeWeights()
-        {
-            for (int i = 0; i < weights.Length - 1; i++)
-            {
-                weights[i] = r.NextDouble();
-            }
-        }
-        
+        public double bias;
     }
 
     public class NeuralNetwork()
     {
         public int Epoch = 20000;
     };
+
+    static void Main()
+    {
+        int[] layers = new[] { 2, 2, 1 };
+    }
 
 }
