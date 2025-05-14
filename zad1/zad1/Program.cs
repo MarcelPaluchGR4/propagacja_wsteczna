@@ -1,10 +1,13 @@
-﻿class Program
+﻿// TODO refactor this low-quality code in your free time
+
+class Program
 {
     static int inputLayerNeurons = 2;
     static int hiddenLayerNeurons = 2;
     static int outputLayerNeurons = 1;
     static double learningParameter = 0.3;
     static int Epoch = 50000;
+    static double learningStopError = 0.3;
 
     static double Sigmoid(double x) => 1.0 / (1.0 + Math.Exp(-x));
     static double SigmoidDerivative(double x) => x * (1 - x);
@@ -36,6 +39,8 @@
 
         for (int epoch = 0; epoch < Epoch; epoch++)
         {
+            double totalError = 0;
+
             foreach (var data in xorTrainingSet)
             {
                 double[] inputs = { data[0], data[1] };
@@ -56,6 +61,7 @@
                 output = Sigmoid(output);
 
                 double outputError = expected - output;
+                totalError += Math.Pow(outputError, 2);
                 double outputDelta = outputError * SigmoidDerivative(output);
 
                 double[] hiddenDeltas = new double[hiddenLayerNeurons];
@@ -74,6 +80,16 @@
                         weightsInputHidden[i, j] += learningParameter * hiddenDeltas[i] * inputs[j];
                     biasHidden[i] += learningParameter * hiddenDeltas[i];
                 }
+            }
+
+            // wyprintuj blad co 1000 epok
+            if (epoch % 1000 == 0)
+                Console.WriteLine($"Epoch {epoch}, Error: {totalError:F6}");
+
+            if (totalError < learningStopError)
+            {
+                Console.WriteLine($"Training stopped at epoch {epoch}, total error: {totalError:F6}");
+                break;
             }
         }
 
